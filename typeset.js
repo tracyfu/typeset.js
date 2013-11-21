@@ -11,9 +11,13 @@
     module.exports = _;
   }
 
+  _.format = function() {
+
+  };
+
   // Numbers
   function isInt(number) {
-    return (number % 1 === 0) && !isNaN(parseInt(number)) && isFinite(number);
+    return (/^-?\d+$/).test(number);
   }
 
   // - Convert numbers to floats (8000 -> 80.00)
@@ -22,19 +26,19 @@
   // - Convert words to numbers (eight thousand -> 8000)
 
   // Ordinal Indicators
-  _.indicators = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
+  var _INDICATORS = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
 
   // Returns an ordinal numeral
   _.ordinal = function(number) {
     if (!isInt(number)) {
-      throw new TypeError('Invalid integer');
+      throw new TypeError('Invalid integer ' + number);
     }
-    else {
-      var i = Math.abs(number % 10),
-          nth = (Math.floor(Math.abs(number % 100 / 10)) === 1) ? 'th' : _.indicators[i];
 
-      return number + nth;
-    }
+    var ones = Math.abs(number % 10),
+        tens = Math.floor(Math.abs(number % 100 / 10)),
+        nth  = (tens === 1) ? 'th' : _INDICATORS[ones];
+
+    return parseInt(number, 10) + nth;
   };
 
   // Convert numbers to ordinal numbers
