@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+  <title>Typeset.js</title>
+</head>
+<body>
+  <div id="output"></div>
+  <div id="tests"></div>
+
+  <script src="jquery-2.0.3.min.js"></script>
+  <script src="typeset.js"></script>
+  <script>
+    $(function() {
+      for(var i = -100; i < 130; i++) {
+        $('#output').append(typeset.ordinal(i) + ', ');
+        $('#tests').append("assert.equal('" + typeset.ordinal(i) + "', typeset.ordinal(" + i + "));<br>");
+      }
+    });
+  </script>
+</body>
+</html>
